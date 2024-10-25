@@ -2665,6 +2665,7 @@ __declspec(dllexport) LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wP
                 HideTransWin();
                 // Send WM_EXITSIZEMOVE
                 SendSizeMove(WM_EXITSIZEMOVE);
+                NotifyWinEvent(0x0B, state.hwnd, 0, 0);
 
                 state.alt = 0;
                 state.alt1 = 0;
@@ -4962,6 +4963,7 @@ static int init_movement_and_actions(POINT pt, HWND hwnd, enum action action, in
 
         // Send WM_ENTERSIZEMOVE
         SendSizeMove(WM_ENTERSIZEMOVE);
+        NotifyWinEvent(0x0A, state.hwnd, 0, 0);
     } else if(button == BT_WHEEL || button == BT_HWHEEL) {
         // Wheel actions, directly return here
         // because maybe the action will not be done
@@ -5104,6 +5106,7 @@ static void FinishMovement()
     HideTransWin();
     // Send WM_EXITSIZEMOVE
     SendSizeMove(WM_EXITSIZEMOVE);
+    NotifyWinEvent(0x0B, state.hwnd, 0, 0);
 
     state.action = AC_NONE;
     state.moving = 0;
